@@ -46,7 +46,7 @@ function App({classes}) {
                 <div className={classes.toolbarMargin}/>
                 <Grid container spacing={2}>
                     {
-                        [...Array(32).keys()].map(n => n + 1)
+                        [...Array(128).keys()].map(n => n + 1)
                             .map(n => <Grid key={n} item>
                                 <Paper className={classes.paper}>Element {n} goes here</Paper>
                             </Grid>)
