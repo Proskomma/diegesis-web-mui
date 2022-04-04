@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
-//import PropTypes from "prop-types";
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import PropTypes from "prop-types";
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 //import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 //import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/core/Menu';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+//import MenuIcon from '@mui/Menu';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 //import Paper from '@material-ui/core/Paper';
 import BrowsePassage from "../pages/BrowsePassage/BrowsePassage";
 import BrowseBook from "../pages/BrowseBook/BrowseBook";
 
 
-export default function Browse({}) {
+export default function Browse({classes}) {
 
     const [showPassage, setShowPassage] = useState(false);
 
@@ -30,12 +30,13 @@ export default function Browse({}) {
             </Toolbar>
         </AppBar>
         <main> 
-            { showPassage ? <BrowsePassage /> : <BrowseBook />} 
+            { showPassage ? <BrowsePassage classes={classes} /> : <BrowseBook />} 
         </main>
  </>
 }
 
 Browse.propTypes = {
+    classes: PropTypes.object.isRequired,
 //    pkState: PropTypes.object.isRequired,
 //    navState: PropTypes.object.isRequired,
 //    catalog: PropTypes.object.isRequired,

@@ -1,16 +1,17 @@
 import React, {useState} from "react";
 //import {useQuery} from "proskomma-react-hooks";
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 //import Toolbar from '@material-ui/core/Toolbar';
-import Box from '@material-ui/core/Box';
+//import Box from '@mui/Box';
 //import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 //import parseReferenceString from "../../components/parseReferenceString";
 //import PassageResults from "./PassageResults";
 //import BrowsePassageOptions from "./BrowsePassageOptions";
@@ -19,25 +20,27 @@ import Switch from '@material-ui/core/Switch';
 //import i18n from '../../lib/i18n';
 //import AppLangContext from "../../contexts/AppLang";
 
-export default function BrowsePassage({}) {
+export default function BrowsePassage({classes}) {
 
     const [showOptions, setShowOptions] = useState(false);
 
 console.log("browsePassage");
-    return <div> da
-                <Box>
-                    <Typography>Hola</Typography>
-                    <FormGroup >
-                        <FormControlLabel control={<Switch color="default" onChange={() => setShowOptions(!showOptions)} />} label="Toggle" />
-                    </FormGroup>
-                </Box>
+    return <div className={classes.toolbarMargin}> da
+                <Typography>Hola</Typography>
+                <FormGroup >
+                    <FormControlLabel control={<Switch color="default" onChange={() => setShowOptions(!showOptions)} />} label="Toggle" />
+                </FormGroup>
                 { showOptions && <List>
-                    <ListItem disablePadding>
-                            <ListItemText primary="Trash" />
-                    </ListItem>
-                    <ListItem disablePadding>
-                            <ListItemText primary="Spam" />
-                    </ListItem>
+                    <ListItemButton>
+                        <ListItem disablePadding>
+                                <ListItemText primary="Trash" />
+                        </ListItem>
+                    </ListItemButton>
+                    <ListItemButton>
+                        <ListItem disablePadding>
+                                <ListItemText primary="Spam" />
+                        </ListItem>
+                    </ListItemButton>
                 </List>
             }
             </div>
@@ -46,4 +49,5 @@ console.log("browsePassage");
 BrowsePassage.propTypes = {
 //    pkState: PropTypes.object.isRequired,
 //    navState: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };

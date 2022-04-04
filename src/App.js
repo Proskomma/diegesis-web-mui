@@ -1,7 +1,8 @@
 import React, {useMemo} from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import {useMediaQuery} from "@material-ui/core";
-import {ThemeProvider, createTheme, withStyles} from '@material-ui/core/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { ThemeProvider as MuiThemeProvider, StylesProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@emotion/react';
 import Browse from "./components/Browse.js";
 
 const styles = theme => ({
@@ -22,21 +23,25 @@ function App({classes}) {
 
     const theme = useMemo(
         () =>
-            createTheme({
+            MuiThemeProvider({
                 palette: {
                     mode: prefersDarkMode ? 'dark' : 'light',
                 },
             }),
         [prefersDarkMode],
     );
-    return <ThemeProvider theme={theme}>
-        <div className={classes.root}>
-            <CssBaseline/>
-            <Browse />
-        </div>
-    </ThemeProvider>;
+    return <StylesProvider>
+            <MuiThemeProvider theme={theme}>
+                <ThemeProvider theme={theme}>
+                    <div className={classes.root}>
+                        <CssBaseline/>
+                        <Browse classes={classes} />
+                    </div>
+                </ThemeProvider>
+            </MuiThemeProvider>
+        </StylesProvider>;
 }
 
 // <Grid key={n} item spacing={3} md={4} sm={6} xs={12}>
 
-export default withStyles(styles)(App);
+export default StylesProvider(styles)(App);
