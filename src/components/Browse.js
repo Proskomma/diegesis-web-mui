@@ -29,8 +29,8 @@ export default function Browse({classes}) {
                 </Typography>
             </Toolbar>
         </AppBar>
-        <main> 
-            { showPassage ? <BrowsePassage classes={classes} /> : <BrowseBook />} 
+        <main style={{marginTop:"75px"}}>
+            { showPassage ? <BrowsePassage classes={classes} /> : <BrowseBook />}
         </main>
  </>
 }
