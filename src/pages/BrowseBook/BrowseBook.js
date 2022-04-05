@@ -1,11 +1,15 @@
 import React from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 
 export default function BrowseBook({}) {
 
- return <>
- <Typography>Book</Typography>
- </>
+ return <List>
+            <ListItem disablePadding>
+                    <Typography>Block text</Typography>
+            </ListItem>
+        </List>
 }
 
 BrowseBook.propTypes = {

@@ -1,53 +1,131 @@
-import React, {useState} from "react";
-//import {useQuery} from "proskomma-react-hooks";
+import React, {useState, useEffect} from "react";
+import {useQuery} from "proskomma-react-hooks";
 import PropTypes from "prop-types";
-//import Toolbar from '@material-ui/core/Toolbar';
-//import Box from '@mui/Box';
-//import Button from '@material-ui/core/Button';
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemButton from '@mui/material/ListItemButton';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-//import parseReferenceString from "../../components/parseReferenceString";
-//import PassageResults from "./PassageResults";
-//import BrowsePassageOptions from "./BrowsePassageOptions";
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import TuneIcon from '@mui/icons-material/Tune';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import parseReferenceString from "../../components/parseReferenceString";
+import PassageResults from "./PassageResults";
+import BrowsePassageOptions from "./BrowsePassageOptions";
 //import "./BrowsePassage.css";
-//import InputDisplay from "./InputDisplay";
+import InputDisplay from "./InputDisplay";
 //import i18n from '../../lib/i18n';
 //import AppLangContext from "../../contexts/AppLang";
 
-export default function BrowsePassage({classes}) {
+export default function BrowsePassage({pkState, navState}) {
 
+    const [reference, setReference] = useState('3JN 1:1-3');
+    const [parsedReference, setParsedReference] = useState('3JN 1:1-3');
+    const [parseResult, setParseResult] = useState({});
     const [showOptions, setShowOptions] = useState(false);
+    const displayFlags = {
+        versesForOneVersion: {allDocSets: false, groupVerses: false, byBlock: false},
+        versesByVersion: {allDocSets: true, groupVerses: false, byBlock: false},
+        versesByVerse: {allDocSets: true, groupVerses: true, byBlock: false},
+        blocksForOneVersion: {allDocSets: false, groupVerses: false, byBlock: true},
+        blocksByVersion: {allDocSets: true, groupVerses: false, byBlock: true},
+    };
 
-console.log("browsePassage");
-    return <div className={classes.toolbarMargin}> da
-                <Typography>Hola</Typography>
-                <FormGroup >
-                    <FormControlLabel control={<Switch color="default" onChange={() => setShowOptions(!showOptions)} />} label="Toggle" />
-                </FormGroup>
-                { showOptions && <List>
-                    <ListItemButton>
-                        <ListItem disablePadding>
-                                <ListItemText primary="Trash" />
-                        </ListItem>
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItem disablePadding>
-                                <ListItemText primary="Spam" />
-                        </ListItem>
-                    </ListItemButton>
-                </List>
+    const [displayMode, setDisplayMode] = useState("versesForOneVersion");
+
+    const verbose = true;
+
+    useEffect(
+        () => {
+            setReference(`${navState.bookCode} ${navState.chapter}:${navState.verse}`);
+        },
+        [navState]
+    );
+
+    useEffect(
+        () => {
+            const pr = parseReferenceString(reference);
+            setParseResult(pr);
+            if (pr.parsed) {
+                setParsedReference(pr.original);
             }
+        },
+        [reference]
+    );
+
+    const query = `{
+        docSets { 
+          id
+          document(bookCode:"${parsedReference.split(/\s+/)[0]}") {
+          bookCode: header(id: "bookCode")
+          cv(chapterVerses:"${parsedReference.split(/\s+/)[1]}") {
+            scopeLabels(startsWith:["chapter", "verses"])
+            text
+          }
+          mainSequence {
+              blocks(withScriptureCV:"${parsedReference.split(/\s+/)[1]}") {
+                  scopeLabels(startsWith: ["blockTag"])
+                  text (withScriptureCV:"${parsedReference.split(/\s+/)[1]}")
+                  items{type subType payload}
+            }
+          }
+        }
+      }
+    }`;
+
+    const queryState = useQuery({
+        ...pkState,
+        query: query,
+        verbose,
+    });
+    const selectedDocSets = queryState.data.docSets?.filter((ds) => displayFlags[displayMode]?.allDocSets || ds.id === navState.docSetId) || [];
+
+    return <div>
+                <Toolbar>
+                    <IconButton 
+                        edge="start" 
+                        color="inherit" 
+                        size="small" 
+                        aria-label="menu" 
+                        sx={{ mr: 2 }}
+                        onClick={() => setShowOptions(!showOptions)}
+                    >
+                        <TuneIcon />
+                    </IconButton>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            width: 500,
+                            maxWidth: '100%',
+                        }}
+                    >
+                        <TextField 
+                            fullWidth
+                            value={reference}
+                            onChange={e => setReference(e.target.value)}
+                            label="Search passage" 
+                            color="primary" 
+                            id="search-passage"
+                        />
+                    </Box>
+                    <InputDisplay parseR={parseResult} />
+                </Toolbar>
+                <FormControl>
+                    { showOptions && <BrowsePassageOptions 
+                        displayMode={displayMode} 
+                        setDisplayMode={setDisplayMode} 
+                    /> }
+                    <PassageResults
+                        reference={reference}
+                        parseResult={parseResult}
+                        docSets={selectedDocSets}
+                        displayFlags={displayFlags}
+                        displayMode={displayMode}
+                        navState={navState}
+                    />
+                </FormControl>
             </div>
 }
 
 BrowsePassage.propTypes = {
-//    pkState: PropTypes.object.isRequired,
-//    navState: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired,
+    pkState: PropTypes.object.isRequired,
+    navState: PropTypes.object.isRequired,
 };

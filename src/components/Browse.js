@@ -9,41 +9,38 @@ import MenuIcon from '@mui/icons-material/Menu';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import Container from '@mui/material/Container';
 //import Paper from '@material-ui/core/Paper';
 import BrowsePassage from "../pages/BrowsePassage/BrowsePassage";
 import BrowseBook from "../pages/BrowseBook/BrowseBook";
 
 
-export default function Browse({classes}) {
+export default function Browse({pkState, navState/*, catalog*/}) {
 
     const [showPassage, setShowPassage] = useState(false);
 
-    /*
-                   <FormGroup >
-                    <FormControlLabel control={<Switch color="default" onChange={() => setShowPassage(!showPassage)} />} label="Toggle" />
-                </FormGroup>
-     */
  return <>
         <AppBar position="fixed" >
             <Toolbar>
                 <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                     <MenuIcon />
                 </IconButton>
-                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Toolbar
-                </Typography>
-                <Typography>Right?</Typography>
+                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>{`${navState.bookCode} - ${navState.docSetId}`}</Typography>
+                <FormGroup >
+                    <FormControlLabel control={<Switch color="default" onChange={() => setShowPassage(!showPassage)} />} label="Passage" />
+                </FormGroup>
             </Toolbar>
         </AppBar>
         <main style={{marginTop:"75px"}}>
-            { showPassage ? <BrowsePassage classes={classes} /> : <BrowseBook />}
+            <Container maxWidth="sm">
+            { showPassage ? <BrowsePassage pkState={pkState} navState={navState} /> : <BrowseBook />}
+            </Container>
         </main>
  </>
 }
 
 Browse.propTypes = {
-    classes: PropTypes.object.isRequired,
-//    pkState: PropTypes.object.isRequired,
-//    navState: PropTypes.object.isRequired,
+    pkState: PropTypes.object.isRequired,
+    navState: PropTypes.object.isRequired,
 //    catalog: PropTypes.object.isRequired,
 };
