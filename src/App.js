@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import {useProskomma} from 'proskomma-react-hooks';
+import {useProskomma, useCatalog} from 'proskomma-react-hooks';
 import {nt_ebible_27book as frozen} from 'proskomma-frozen-archives';
-import {useCatalog} from 'proskomma-react-hooks';
 import {thaw} from 'proskomma-freeze';
 //import {AppLangProvider} from './contexts/AppLang';
+import SideMenu from "./components/SideMenu";
 import Browse from "./components/Browse.js";
 
 /*const styles = theme => ({
@@ -50,7 +50,7 @@ function App({}) {
     });
 
     return  <ThemeProvider theme={theme}>
-                    <Browse pkState={pkState} navState={navState} catalog={catalog} />
+                    <Browse pkState={pkState} navState={navState} setNavState={setNavState} catalog={catalog} appLanguage={appLanguage} setAppLanguage={setAppLanguage} />
             </ThemeProvider>;
 }
 

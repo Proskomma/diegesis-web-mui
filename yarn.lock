@@ -7974,10 +7974,10 @@ proskomma-frozen-archives@0.0.3:
   resolved "https://registry.yarnpkg.com/proskomma-frozen-archives/-/proskomma-frozen-archives-0.0.3.tgz#b8e62082c0fae936011f2cfadffd75d749177aab"
   integrity sha512-nxoOPVZQ86V2cZBY0d9ES+Ko7eN/MESabL4xSM7kcAiOTLKpaawbQhzOkUULAwMjbgsJvdJW4vcuVL9M4zp0Lg==
 
-proskomma-react-hooks@^1.11.1:
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/proskomma-react-hooks/-/proskomma-react-hooks-1.11.1.tgz#a39a392ef875595c13c85d0b3b68a5562cea103e"
-  integrity sha512-vLy5lioysoIYpBFyFYggbWfU2rGxz04jLq4k1DQqISaltaoVR/4TOMIK9osPdjOpKuqSXAKof92ORL2+8N55HQ==
+proskomma-react-hooks@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/proskomma-react-hooks/-/proskomma-react-hooks-2.1.1.tgz#1333beec2923fc06482440b69e984a8301c3d6d0"
+  integrity sha512-r6ZMqO45cdR+ib8AmxbAP6R+3HY7r9l03Nlb//Pms5wn9DAmzLLYl5hbHjlgExl0oR3rkQGtJU/jTedGDfcsIQ==
   dependencies:
     deep-freeze "^0.0.1"
     lorem-ipsum "^2.0.4"

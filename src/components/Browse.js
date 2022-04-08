@@ -10,37 +10,45 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Container from '@mui/material/Container';
-//import Paper from '@material-ui/core/Paper';
 import BrowsePassage from "../pages/BrowsePassage/BrowsePassage";
 import BrowseBook from "../pages/BrowseBook/BrowseBook";
+import PopMenu from "./PopMenu";
+import SideMenu from "./SideMenu";
 
 
-export default function Browse({pkState, navState/*, catalog*/}) {
+export default function Browse({pkState, navState, setNavState, catalog, appLanguage, setAppLanguage}) {
 
     const [showPassage, setShowPassage] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
+    const [selected, setSelected] = useState('navigation');
+    const [showAppLang, setShowAppLang] = useState(false);
 
  return <>
         <AppBar position="fixed" >
             <Toolbar>
-                <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                    <MenuIcon />
-                </IconButton>
+                <PopMenu showMenu={showMenu} setShowMenu={setShowMenu} selected={selected} setSelected={setSelected} showAppLang={showAppLang} setShowAppLang={setShowAppLang} />
                  <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>{`${navState.bookCode} - ${navState.docSetId}`}</Typography>
                 <FormGroup >
                     <FormControlLabel control={<Switch color="default" onChange={() => setShowPassage(!showPassage)} />} label="Passage" />
                 </FormGroup>
             </Toolbar>
         </AppBar>
+        { showMenu ? <SideMenu pkState={pkState} navState={navState} setNavState={setNavState} catalog={catalog} appLanguage={appLanguage} setAppLanguage={setAppLanguage} setShowMenu={setShowMenu} selected={selected} showAppLang={showAppLang} /> :
         <main style={{marginTop:"75px"}}>
             <Container maxWidth="sm">
-            { showPassage ? <BrowsePassage pkState={pkState} navState={navState} /> : <BrowseBook />}
+            { showPassage ? <BrowsePassage pkState={pkState} navState={navState} /> : <BrowseBook pkState={pkState} navState={navState} catalog={catalog} />}
             </Container>
         </main>
+        }
  </>
 }
 
 Browse.propTypes = {
     pkState: PropTypes.object.isRequired,
     navState: PropTypes.object.isRequired,
-//    catalog: PropTypes.object.isRequired,
+    setNavState: PropTypes.func.isRequired,
+    catalog: PropTypes.object.isRequired,
+    appLanguage: PropTypes.string.isRequired,
+    setAppLanguage: PropTypes.func.isRequired,
+
 };
