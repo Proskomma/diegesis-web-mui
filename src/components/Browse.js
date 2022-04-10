@@ -23,24 +23,38 @@ export default function Browse({pkState, navState, setNavState, catalog, appLang
     const [selected, setSelected] = useState('navigation');
     const [showAppLang, setShowAppLang] = useState(false);
 
- return <>
-        <AppBar position="fixed" >
-            <Toolbar>
-                <PopMenu showMenu={showMenu} setShowMenu={setShowMenu} selected={selected} setSelected={setSelected} showAppLang={showAppLang} setShowAppLang={setShowAppLang} />
-                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>{`${navState.bookCode} - ${navState.docSetId}`}</Typography>
-                <FormGroup >
-                    <FormControlLabel control={<Switch color="default" onChange={() => setShowPassage(!showPassage)} />} label="Passage" />
-                </FormGroup>
-            </Toolbar>
+    const browseComponent = showPassage ? <BrowsePassage pkState={pkState} navState={navState} /> : <BrowseBook pkState={pkState} navState={navState} catalog={catalog} />
+
+    return <>
+            <AppBar position="fixed" >
+                <Toolbar>
+                    <PopMenu showMenu={showMenu} setShowMenu={setShowMenu} selected={selected} setSelected={setSelected} showAppLang={showAppLang} setShowAppLang={setShowAppLang} />
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>{`${navState.bookCode} - ${navState.docSetId}`}</Typography>
+                    <FormGroup >
+                        <FormControlLabel control={<Switch color="default" onChange={() => setShowPassage(!showPassage)} />} label="Passage" />
+                    </FormGroup>
+                </Toolbar>
         </AppBar>
-        { showMenu ? <SideMenu pkState={pkState} navState={navState} setNavState={setNavState} catalog={catalog} appLanguage={appLanguage} setAppLanguage={setAppLanguage} setShowMenu={setShowMenu} selected={selected} showAppLang={showAppLang} /> :
         <main style={{marginTop:"75px"}}>
             <Container maxWidth="sm">
-            { showPassage ? <BrowsePassage pkState={pkState} navState={navState} /> : <BrowseBook pkState={pkState} navState={navState} catalog={catalog} />}
+                {showMenu ?
+                    <SideMenu
+                        pkState={pkState}
+                        navState={navState}
+                        setNavState={setNavState}
+                        catalog={catalog}
+                        appLanguage={appLanguage}
+                        setAppLanguage={setAppLanguage}
+                        setShowMenu={setShowMenu}
+                        selected={selected}
+                        showAppLang={showAppLang}
+                    />
+                :
+                    browseComponent
+                }
             </Container>
         </main>
-        }
- </>
+    </>
 }
 
 Browse.propTypes = {
