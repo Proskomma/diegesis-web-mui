@@ -16,18 +16,18 @@ export default function PopMenu({setShowMenu, selected, setSelected, showAppLang
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleMenuItemClick = (selected) => {
+    unsetAnchorEl();
     setShowMenu(true);
+    setSelected(selected)
   };
 
-  const handleClose1 = () => {
-    setAnchorEl(null);
-  };
+  const unsetAnchorEl = () => setAnchorEl(null);
 
   return (
     <div>
@@ -47,35 +47,29 @@ export default function PopMenu({setShowMenu, selected, setSelected, showAppLang
         id="menu1"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose1}
+        onClose={unsetAnchorEl}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
       > 
         <MenuList>
-          <MenuItem onClick={handleClose} >
-            <ListItemButton onClick={() => setSelected("search")}>
+          <MenuItem onClick={() => handleMenuItemClick("search")} >
               <ListItemIcon>
                 <PageviewIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Search</ListItemText>
-            </ListItemButton>
           </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <ListItemButton onClick={() => setSelected("navigation")} sx={{ width: 1 }}>
+          <MenuItem onClick={() => handleMenuItemClick("navigation")}>
               <ListItemIcon>
                 <LibraryBooksIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Books</ListItemText>
-            </ListItemButton>
           </MenuItem>
-          <MenuItem>
-            <ListItemButton onClick={() => setShowAppLang(!showAppLang)}>
+          <MenuItem onClick={() => setShowAppLang(!showAppLang)}>
               <ListItemIcon>
                 <SettingsIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Settings</ListItemText>
-            </ListItemButton>
           </MenuItem>
         </MenuList>
       </Menu>

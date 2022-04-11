@@ -5,12 +5,13 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-//import Button from '@mui/material/Button';
+import Button from '@mui/material/Button';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import "./VersionsAccordion.css";
 
 export default function VersionsAccordion({docSet, n, catalog, cClick, navState}) {
+
     return (
         <Accordion key={n} value={docSet.id}>
             <AccordionSummary
@@ -21,7 +22,7 @@ export default function VersionsAccordion({docSet, n, catalog, cClick, navState}
                 <Typography className="accordionLabel" color="secondary">{docSet.id}</Typography>
             </AccordionSummary>
             <List slot="content">
-                    {docSet.documents.map((d, n2) => (
+                    {docSet.documents?.map((d, n2) => (
                         <Accordion key={n2} value={d.bookCode}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
@@ -32,21 +33,20 @@ export default function VersionsAccordion({docSet, n, catalog, cClick, navState}
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
-                                    {`catalog.docSets[n].documents[n2].cvNumbers
-                                        .map((c1) => c1.chapter)
-                                        .map((c3, n3) => (
+                                    {Object.entries(catalog.docSets[n].documents[n2].versesByChapters).map(
+                                        (chapter, key) =>
                                             <Button
-                                                key={n3}
+                                                key={key}
                                                 size="small"
                                                 fill="clear"
                                                 doc={docSet.id}
                                                 book={d.bookCode}
-                                                chapter={c3}
+                                                chapter={chapter[0]}
                                                 onClick={cClick}
                                             >
-                                                {c3}
+                                                {chapter[0]}
                                             </Button>
-                                        ))`}
+                                    )}
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>

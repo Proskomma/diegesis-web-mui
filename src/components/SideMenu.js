@@ -1,5 +1,5 @@
 import Container from '@mui/material/Container';
-import React, {useState} from "react";
+import React from "react";
 import Button from '@mui/material/Button';
 import PropTypes from "prop-types";
 import SideMenuNavigation from "./SideMenuNavigation";
@@ -7,16 +7,14 @@ import SideMenuSearch from "./SideMenuSearch";
 import AppLangOptions from "./AppLangOptions";
 
 export default function SideMenu({pkState, navState, setNavState, catalog, appLanguage, setAppLanguage, setShowMenu, selected, showAppLang}) {
-    
-
-    return <main style={{marginTop:"75px"}} >
-                <Container maxWidth="sm">
-                    <Button onClick={() => setShowMenu(false)}>Close</Button>
-                    {showAppLang && <AppLangOptions appLanguage={appLanguage} setAppLanguage={setAppLanguage} />}
-                    {selected === 'navigation' && <SideMenuNavigation catalog={catalog} navState={navState} setNavState={setNavState} />}
-                    {selected === 'search' && <SideMenuSearch pkState={pkState} navState={navState} setNavState={setNavState} />}
-                </Container>
-            </main>
+    return (
+        <>
+            <Button onClick={() => setShowMenu(false)}>Close</Button>
+            {showAppLang && <AppLangOptions appLanguage={appLanguage} setAppLanguage={setAppLanguage} />}
+            {selected === 'navigation' && <SideMenuNavigation catalog={catalog} navState={navState} setNavState={setNavState} />}
+            {selected === 'search' && <SideMenuSearch pkState={pkState} navState={navState} setNavState={setNavState} />}
+        </>
+    )
 }
 
 SideMenu.propTypes = {
