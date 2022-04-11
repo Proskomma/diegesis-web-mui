@@ -12,7 +12,7 @@ import PageviewIcon from '@mui/icons-material/Pageview';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-export default function PopMenu({setShowMenu, selected, setSelected, showAppLang, setShowAppLang}) {
+export default function PopMenu({selected, setSelected, showAppLang, setShowAppLang}) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -23,7 +23,6 @@ export default function PopMenu({setShowMenu, selected, setSelected, showAppLang
 
   const handleMenuItemClick = (selected) => {
     unsetAnchorEl();
-    setShowMenu(true);
     setSelected(selected)
   };
 
@@ -63,9 +62,9 @@ export default function PopMenu({setShowMenu, selected, setSelected, showAppLang
               <ListItemIcon>
                 <LibraryBooksIcon fontSize="small" />
               </ListItemIcon>
-              <ListItemText>Books</ListItemText>
+              <ListItemText>Read</ListItemText>
           </MenuItem>
-          <MenuItem onClick={() => setShowAppLang(!showAppLang)}>
+          <MenuItem onClick={() => handleMenuItemClick("settings")}>
               <ListItemIcon>
                 <SettingsIcon fontSize="small" />
               </ListItemIcon>

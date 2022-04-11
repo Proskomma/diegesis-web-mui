@@ -13,7 +13,7 @@ import "./VersionsAccordion.css";
 export default function VersionsAccordion({docSet, n: set, catalog, cClick, navState}) {
 
     return (
-        <Accordion key={n} value={docSet.id}>
+        <Accordion key={set} value={docSet.id}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="docSetId"
