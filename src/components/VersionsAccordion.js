@@ -10,7 +10,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import "./VersionsAccordion.css";
 
-export default function VersionsAccordion({docSet, n, catalog, cClick, navState}) {
+export default function VersionsAccordion({docSet, n: set, catalog, cClick, navState}) {
 
     return (
         <Accordion key={n} value={docSet.id}>
@@ -22,8 +22,8 @@ export default function VersionsAccordion({docSet, n, catalog, cClick, navState}
                 <Typography className="accordionLabel" color="secondary">{docSet.id}</Typography>
             </AccordionSummary>
             <List slot="content">
-                    {docSet.documents?.map((d, n2) => (
-                        <Accordion key={n2} value={d.bookCode}>
+                    {docSet.documents?.map((d, book) => (
+                        <Accordion key={book} value={d.bookCode}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="titles"
@@ -33,7 +33,7 @@ export default function VersionsAccordion({docSet, n, catalog, cClick, navState}
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
-                                    {Object.entries(catalog.docSets[n].documents[n2].versesByChapters).map(
+                                    {Object.keys(catalog.docSets[set].documents[book].versesByChapters).map(
                                         (chapter, key) =>
                                             <Button
                                                 key={key}
@@ -41,10 +41,10 @@ export default function VersionsAccordion({docSet, n, catalog, cClick, navState}
                                                 fill="clear"
                                                 doc={docSet.id}
                                                 book={d.bookCode}
-                                                chapter={chapter[0]}
+                                                chapter={chapter}
                                                 onClick={cClick}
                                             >
-                                                {chapter[0]}
+                                                {chapter}
                                             </Button>
                                     )}
                                 </Typography>
