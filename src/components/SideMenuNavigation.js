@@ -9,7 +9,7 @@ import i18n from '../lib/i18n';
 import AppLangContext from "../contexts/AppLang";
 import VersionsAccordion from './VersionsAccordion';
 
-export default function SideMenuNavigation({catalog, navState, setNavState, setRead}) {
+export default function SideMenuNavigation({catalog, navState, setNavState}) {
     
     const appLang = useContext(AppLangContext);
 
@@ -19,7 +19,6 @@ export default function SideMenuNavigation({catalog, navState, setNavState, setR
         const bookCode = element?.getAttribute("book");
         const chapter = parseInt(element?.getAttribute("chapter"));
         setNavState((prevState) => ({...prevState, docSetId: docSetId, bookCode: bookCode, chapter: chapter}));
-        setRead();
     };
 
     return <List>
@@ -46,5 +45,4 @@ SideMenuNavigation.propTypes = {
     navState: PropTypes.object.isRequired,
     setNavState: PropTypes.func.isRequired,
     catalog: PropTypes.object.isRequired,
-    setRead: PropTypes.func.isRequired,
 };
