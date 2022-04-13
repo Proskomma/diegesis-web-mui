@@ -15,7 +15,6 @@ export default function SideMenu({pkState, navState, setNavState, catalog, appLa
 }
 
 SideMenu.propTypes = {
-    catalog: PropTypes.object.isRequired,
     pkState: PropTypes.object.isRequired,
     navState: PropTypes.object.isRequired,
     setNavState: PropTypes.func.isRequired,

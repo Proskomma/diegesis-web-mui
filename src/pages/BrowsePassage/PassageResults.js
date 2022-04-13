@@ -1,5 +1,5 @@
 import React from "react";
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import Typography from '@mui/material/Typography';
 import PassageByVersions from "./PassageByVersions";
 import PassageByVerse from "./PassageByVerse";
@@ -35,10 +35,10 @@ export default function PassageResults({reference, parseResult, docSets, display
 }
 
 PassageResults.propTypes = {
-/*    reference: PropTypes.string.isRequired,
+    reference: PropTypes.string.isRequired,
     parseResult: PropTypes.object.isRequired,
     docSets: PropTypes.array.isRequired,
     displayFlags: PropTypes.object.isRequired,
     displayMode: PropTypes.string.isRequired,
-    navState: PropTypes.object.isRequired,*/
+    navState: PropTypes.object.isRequired,
 };
