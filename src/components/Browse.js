@@ -36,7 +36,7 @@ export default function Browse({pkState, navState, setNavState, catalog, appLang
             setRead()
         }
     }
-    console.log(catalog)
+    
     return <>
             <AppBar position="fixed" >
                 <Toolbar>

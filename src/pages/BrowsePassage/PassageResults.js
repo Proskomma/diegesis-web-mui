@@ -10,7 +10,7 @@ export default function PassageResults({reference, parseResult, docSets, display
     const cvArray = docSets[0]?.document?.cv.map(v => v.scopeLabels) || [];
 
     if (reference === '') {
-        return <Typography>Please enter a book reference!</Typography>;
+        return ;
     } else if (!parseResult.parsed || !parseResult.startVerse) {
         return <Typography>Wrong format!</Typography>
     } else if (docSets?.filter(ds => ds.document).length === 0) {

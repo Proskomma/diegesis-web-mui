@@ -35,7 +35,7 @@ export default function BrowsePassage({pkState, navState}) {
 
     useEffect(
         () => {
-            setReference(`${navState.bookCode} ${navState.chapter}:${navState.verse}`);
+            setReference(`${navState.bookCode} ${navState.chapter}`);
         },
         [navState]
     );
