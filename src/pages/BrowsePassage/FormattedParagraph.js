@@ -5,7 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import FormattedParagraphContents from "./FormattedParagraphContents";
 
 export default function FormattedParagraph({block, n}) {
-    return <ListItem className={"block.scopeLabels[0].split('/')[1]"} key={n}>
+    return <ListItem className={block.scopeLabels[0].split('/')[1]} key={n}>
             <ListItemText primary={<FormattedParagraphContents b={block} />} />
     </ListItem>
 }

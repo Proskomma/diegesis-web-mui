@@ -19,7 +19,7 @@ export default function VersionsAccordion({docSet, n: set, catalog, cClick, navS
                 aria-controls="docSetId"
                 id="accordion2-header"
             >
-                <Typography className="accordionLabel" color="secondary">{docSet.id}</Typography>
+                <Typography variant="h6" color="primary">{docSet.id}</Typography>
             </AccordionSummary>
             <List slot="content">
                     {docSet.documents?.map((d, book) => (
@@ -29,7 +29,7 @@ export default function VersionsAccordion({docSet, n: set, catalog, cClick, navS
                                 aria-controls="titles"
                                 id="accordion-chapter"
                             >
-                                <Typography color="tertiary" className="accordionLabel">{d.toc3 || d.toc2 || d.h || d.toc}</Typography>
+                                <Typography variant="subtitle1" color="primary">{d.toc3 || d.toc2 || d.h || d.toc}</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>

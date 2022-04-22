@@ -5,12 +5,6 @@
     float: left;
 }
 
-.verses_label {
-    font-size: smaller;
-    font-weight: bold;
-    padding-right: 0.25em;
-}
-
 .selected_verses_label {
     font-size: smaller;
     font-weight: bold;

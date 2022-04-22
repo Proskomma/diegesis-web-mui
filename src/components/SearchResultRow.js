@@ -18,13 +18,15 @@ export default function SearchResultRow({p, n, navState, setNavState}) {
             ...navState,
             bookCode: parseReference.bookCode,
             chapter: parseReference.startChapter,
+            endChapter: parseReference.endChapter,
             verse: parseReference.startVerse,
+            endVerse: parseReference.endVerse,
         });
     };
 
     return <ListItem key={n} >
-                    <ListItemText className="hanging">
-                        <Typography className="cv" color="tertiary" onClick={() => searchReference(p.reference)}>{p.reference}</Typography> <Typography>{p.text}</Typography>
+                    <ListItemText>
+                        <Typography variant="h6" onClick={() => searchReference(p.reference)}>{p.reference}</Typography> <Typography>{p.text}</Typography>
                     </ListItemText>
                 </ListItem>
 }

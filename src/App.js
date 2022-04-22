@@ -3,9 +3,10 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {useProskomma, useCatalog} from 'proskomma-react-hooks';
 import {nt_ebible_27book as frozen} from 'proskomma-frozen-archives';
 import {thaw} from 'proskomma-freeze';
-//import {AppLangProvider} from './contexts/AppLang';
+import {AppLangProvider} from './contexts/AppLang';
 import SideMenu from "./components/SideMenu";
 import Browse from "./components/Browse.js";
+import './App.css';
 
 /*const styles = theme => ({
     root: {
@@ -27,7 +28,9 @@ function App({}) {
         docSetId: 'xyz-fra_lsg',
         bookCode: '3JN',
         chapter: 1,
+        endChapter: 1,
         verse: 1,
+        endVerse: 1,
     };
     const [navState, setNavState] = useState(initialState);
     const [appLanguage, setAppLanguage] = useState("en");
@@ -49,9 +52,11 @@ function App({}) {
         cv: true,
     });
 
-    return  <ThemeProvider theme={theme}>
+    return  <AppLangProvider value={appLanguage}>
+                <ThemeProvider theme={theme}>
                     <Browse pkState={pkState} navState={navState} setNavState={setNavState} catalog={catalog} appLanguage={appLanguage} setAppLanguage={setAppLanguage} />
-            </ThemeProvider>;
+                </ThemeProvider>;
+            </AppLangProvider>
 }
 
 export default App;

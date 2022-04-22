@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import PropTypes from "prop-types";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,9 +12,12 @@ import PopMenu from "./PopMenu";
 import SideMenu from "./SideMenu";
 import BrowsePassage from "../pages/BrowsePassage/BrowsePassage";
 import BrowseBook from "../pages/BrowseBook/BrowseBook";
+import i18n from '../lib/i18n';
+import AppLangContext from "../contexts/AppLang";
 
 
 export default function Browse({pkState, navState, setNavState, catalog, appLanguage, setAppLanguage}) {
+    const appLang = useContext(AppLangContext);
 
     const [selected, setSelected] = useState('');
     const [browse, setBrowse] = useState('read');
@@ -38,38 +41,38 @@ export default function Browse({pkState, navState, setNavState, catalog, appLang
     }
     
     return <>
-            <AppBar position="fixed" >
-                <Toolbar>
-                    <PopMenu selected={selected} setSelected={setSelected} showAppLang={showAppLang} setShowAppLang={setShowAppLang} />
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>{`${navState.bookCode} - ${navState.docSetId}`}</Typography>
-                    <FormGroup >
-                        <FormControlLabel control={<Switch color="default" checked={checked} onChange={() => passageToggle(browse)} />} label="Passage" />
-                    </FormGroup>
-                </Toolbar>
-        </AppBar>
-        <main style={{marginTop:"75px"}}>
-            <Container maxWidth="md">
-                <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6}>
-                                <SideMenu
-                                pkState={pkState}
-                                navState={navState}
-                                setNavState={setNavState}
-                                catalog={catalog}
-                                appLanguage={appLanguage}
-                                setAppLanguage={setAppLanguage}
-                                selected={selected}
-                                setRead={setRead}
-                            />
+                <AppBar position="fixed" color="primary">
+                    <Toolbar>
+                        <PopMenu selected={selected} setSelected={setSelected} showAppLang={showAppLang} setShowAppLang={setShowAppLang} setPassage={setPassage} setRead={setRead} />
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>{`${navState.bookCode} - ${navState.docSetId}`}</Typography>
+                        <FormGroup>
+                            <FormControlLabel control={<Switch color="default" checked={checked} onChange={() => passageToggle(browse)} />} label={i18n(appLang, 'passage')} />
+                        </FormGroup>
+                    </Toolbar>
+                </AppBar>
+                <main style={{marginTop:"75px"}}>
+                    <Container maxWidth="md">
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                                {selected && <SideMenu
+                                    pkState={pkState}
+                                    navState={navState}
+                                    setNavState={setNavState}
+                                    catalog={catalog}
+                                    appLanguage={appLanguage}
+                                    setAppLanguage={setAppLanguage}
+                                    selected={selected}
+                                    setRead={setRead}
+                                />}
+                            </Grid>
+                            <Grid item xs={12} sm={6} >
+                                {browse === 'read' && <BrowseBook pkState={pkState} navState={navState} catalog={catalog} />}
+                                {browse === 'passage' && <BrowsePassage pkState={pkState} navState={navState} selected={selected} />}
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={6} >
-                            {browse === 'read' && <BrowseBook pkState={pkState} navState={navState} catalog={catalog} />}
-                            {browse === 'passage' && <BrowsePassage pkState={pkState} navState={navState} />}
-                        </Grid>
-                </Grid>
-            </Container>
-        </main>
-    </>
+                    </Container>
+                </main>
+            </>
 }
 
 Browse.propTypes = {

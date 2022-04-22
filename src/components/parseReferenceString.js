@@ -30,7 +30,7 @@ export default function(reference) {
                 const fromToCV = fromToBits.map(
                     ftb => {
                         const cvBits = ftb.split(":");
-                        if (cvBits.length === 2 && digitRE.test(cvBits[0]) && digitRE.test(cvBits[1])) { // c:v
+                        if (cvBits.length === 2 && digitRE.test(cvBits[0]) && digitRE.test(cvBits[1])) { // c:v 
                             return cvBits;
                         } else if (cvBits.length === 1 && digitRE.test(cvBits[0])) { // v
                             return  [cvBits[0]];

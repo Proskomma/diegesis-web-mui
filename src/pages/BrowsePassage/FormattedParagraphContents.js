@@ -6,7 +6,7 @@ export default function FormattedParagraphContents ({b}) {
     if (i.type === 'token') {
         return <span key={n}>{i.payload}</span>;
     } else if (i.type === 'scope' && i.subType === 'start' && i.payload.startsWith('verses/')) {
-        return <span className='verse' key={n}>{i.payload.split('/')[1]}</span>;
+        return <span className='verses_label' key={n}>{i.payload.split('/')[1]}</span>;
     }
   }
  )

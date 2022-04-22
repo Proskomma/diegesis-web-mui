@@ -20,7 +20,7 @@ export default function PassageByVersion({docSet, keyPrefix}) {
         {docSet.document?.cv.map(
             (v, n2) => <List key={`${keyPrefix}-${n2}`}>
                 <ListItem>
-                    <ListItemText primary={<><Typography>{`${sLO(v.scopeLabels)["chapter"]}:${sLO(v.scopeLabels)["verses"]}`}</Typography> <Typography>{v.text}</Typography></>} />
+                    <ListItemText><Typography variant="h6">{`${sLO(v.scopeLabels)["chapter"]}:${sLO(v.scopeLabels)["verses"]}`}</Typography> <Typography>{v.text}</Typography></ListItemText>
                 </ListItem>
             </List>
         )

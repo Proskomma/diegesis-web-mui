@@ -1,22 +1,26 @@
-import React from "react";
+import {React, useContext} from "react";
 import PropTypes from "prop-types";
 import Typography from '@mui/material/Typography';
 import PassageByVersions from "./PassageByVersions";
 import PassageByVerse from "./PassageByVerse";
 import PassageByVersion from "./PassageByVersion";
 import PassageByBlocks from "./PassageByBlocks";
+import i18n from "../../lib/i18n";
+import AppLangContext from "../../contexts/AppLang";
 
 export default function PassageResults({reference, parseResult, docSets, displayFlags, displayMode, navState}) {
+    const appLang = useContext(AppLangContext);
+
     const cvArray = docSets[0]?.document?.cv.map(v => v.scopeLabels) || [];
 
     if (reference === '') {
         return ;
-    } else if (!parseResult.parsed || !parseResult.startVerse) {
-        return <Typography>Wrong format!</Typography>
+    } else if (!parseResult.parsed) {
+        return <Typography>{i18n(appLang, 'error_format')}</Typography>
     } else if (docSets?.filter(ds => ds.document).length === 0) {
-        return <Typography>Book not found!</Typography>
+        return <Typography>{i18n(appLang, 'error_book')}</Typography>
     } else if (docSets?.filter(ds => ds.document?.cv.length > 0).length === 0) {
-        return <Typography>Verse not found!</Typography>
+        return <Typography>{i18n(appLang, 'error_verse')}</Typography>
     } else if (displayFlags[displayMode].byBlock) {
         return <PassageByBlocks docSets={docSets} displayFlags={displayFlags} displayMode={displayMode} navState={navState} />;
     }   else {    // by Verse

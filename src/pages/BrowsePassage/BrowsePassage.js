@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {useQuery} from "proskomma-react-hooks";
 import PropTypes from "prop-types";
 import Toolbar from '@mui/material/Toolbar';
@@ -10,15 +10,17 @@ import FormControl from '@mui/material/FormControl';
 import parseReferenceString from "../../components/parseReferenceString";
 import PassageResults from "./PassageResults";
 import BrowsePassageOptions from "./BrowsePassageOptions";
-//import "./BrowsePassage.css";
+import "./BrowsePassage.css";
 import InputDisplay from "./InputDisplay";
-//import i18n from '../../lib/i18n';
-//import AppLangContext from "../../contexts/AppLang";
+import i18n from '../../lib/i18n';
+import AppLangContext from "../../contexts/AppLang";
 
-export default function BrowsePassage({pkState, navState}) {
+export default function BrowsePassage({pkState, navState, selected}) {
 
-    const [reference, setReference] = useState('3JN 1:1-3');
-    const [parsedReference, setParsedReference] = useState('3JN 1:1-3');
+    const appLang = useContext(AppLangContext);
+
+    const [reference, setReference] = useState('3JN 1');
+    const [parsedReference, setParsedReference] = useState('3JN 1');
     const [parseResult, setParseResult] = useState({});
     const [showOptions, setShowOptions] = useState(false);
     const displayFlags = {
@@ -35,7 +37,13 @@ export default function BrowsePassage({pkState, navState}) {
 
     useEffect(
         () => {
-            setReference(`${navState.bookCode} ${navState.chapter}`);
+            if (selected === 'navigation') {
+                setReference(`${navState.bookCode} ${navState.chapter}`);
+            } else if (navState.verse === navState.endVerse) {
+                setReference(`${navState.bookCode} ${navState.chapter}:${navState.verse}`)
+            } else {
+                setReference(`${navState.bookCode} ${navState.chapter}:${navState.verse}-${navState.endVerse}`)
+            }
         },
         [navState]
     );
@@ -101,7 +109,7 @@ export default function BrowsePassage({pkState, navState}) {
                             fullWidth
                             value={reference}
                             onChange={e => setReference(e.target.value)}
-                            label="Search passage" 
+                            label={i18n(appLang, 'search_passage')} 
                             color="primary" 
                             id="search-passage"
                         />
@@ -128,4 +136,5 @@ export default function BrowsePassage({pkState, navState}) {
 BrowsePassage.propTypes = {
     pkState: PropTypes.object.isRequired,
     navState: PropTypes.object.isRequired,
+    selected: PropTypes.string.isRequired,
 };

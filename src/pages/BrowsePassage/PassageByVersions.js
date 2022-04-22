@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -10,7 +11,7 @@ export default function PassageByVersions({docSets}) {
     return docSets?.filter(ds => ds.document).map(
             (ds, n) => <List key={n}>
                     <ListItem>
-                        <ListItemText className="mainContentTitle2" primary={ds.id} />
+                        <ListItemText><Typography variant="h6">{ds.id}</Typography></ListItemText>
                     </ListItem>
                     <ListItem>
                         <PassageByVersion docSet={ds} keyPrefix={n} key={n} />

@@ -3,6 +3,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
 import React, {useContext} from "react";
 import PropTypes from "prop-types";
 import i18n from '../lib/i18n';
@@ -18,27 +19,29 @@ export default function SideMenuNavigation({catalog, navState, setNavState}) {
         const docSetId = element?.getAttribute("doc");
         const bookCode = element?.getAttribute("book");
         const chapter = parseInt(element?.getAttribute("chapter"));
-        setNavState((prevState) => ({...prevState, docSetId: docSetId, bookCode: bookCode, chapter: chapter}));
+        setNavState((prevState) => ({...prevState, docSetId: docSetId, bookCode: bookCode, chapter: chapter, endChapter: chapter, verse: 1, endVerse: 1, }));
     };
 
-    return <List>
-        <ListItemText className="headerTitle" primary={`${catalog.nDocuments} ${i18n(appLang, 'books_in')} ${catalog.nDocSets} ${i18n(appLang, 'bibles')}`} />
-        <ListItem>
-            <Accordion value={navState.docSetId}>
-                <AccordionDetails>
-                    {catalog.docSets && catalog.docSets.map((ds, n) => <VersionsAccordion
-                        docSet={ds}
-                        n={n}
-                        catalog={catalog}
-                        cClick={chapterClick}
-                        navState={navState}
-                        setNavState={setNavState}
-                        key={n}
-                    />)}
-                </AccordionDetails>
-            </Accordion>
-        </ListItem>
-    </List>
+    return <><Typography variant="h5">{i18n(appLang, 'menu_read')}</Typography>
+        <List>
+            <ListItemText className="headerTitle" primary={`${catalog.nDocuments} ${i18n(appLang, 'books_in')} ${catalog.nDocSets} ${i18n(appLang, 'bibles')}`} />
+            <ListItem>
+                <Accordion value={navState.docSetId}>
+                    <AccordionDetails>
+                        {catalog.docSets && catalog.docSets.map((ds, n) => <VersionsAccordion
+                            docSet={ds}
+                            n={n}
+                            catalog={catalog}
+                            cClick={chapterClick}
+                            navState={navState}
+                            setNavState={setNavState}
+                            key={n}
+                        />)}
+                    </AccordionDetails>
+                </Accordion>
+            </ListItem>
+        </List>
+    </>
 }
 
 SideMenuNavigation.propTypes = {

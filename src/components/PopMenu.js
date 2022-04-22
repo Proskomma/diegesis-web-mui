@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuList from '@mui/material/MenuList';
@@ -6,12 +6,14 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Typography from '@mui/material/Typography';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import SettingsIcon from '@mui/icons-material/Settings';
+import i18n from '../lib/i18n';
+import AppLangContext from "../contexts/AppLang";
 
-export default function PopMenu({selected, setSelected, showAppLang, setShowAppLang}) {
+export default function PopMenu({selected, setSelected, showAppLang, setShowAppLang, setPassage, setRead}) {
+  const appLang = useContext(AppLangContext);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -30,16 +32,16 @@ export default function PopMenu({selected, setSelected, showAppLang, setShowAppL
   return (
     <div>
       <IconButton
+        size="large"
         id="button1"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        color="default"
+        color="inherit"
         onClick={handleClick}
         sx={{ mr: 2 }}
       > 
         <MenuIcon />
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'white'}}>Menu</Typography>
       </IconButton>
       <Menu
         id="menu1"
@@ -51,23 +53,29 @@ export default function PopMenu({selected, setSelected, showAppLang, setShowAppL
         }}
       > 
         <MenuList>
-          <MenuItem onClick={() => handleMenuItemClick("search")} >
+          <MenuItem onClick={() => {
+              handleMenuItemClick("search");
+              setPassage()
+            }}>
               <ListItemIcon>
                 <PageviewIcon fontSize="small" />
               </ListItemIcon>
-              <ListItemText>Search</ListItemText>
+              <ListItemText>{i18n(appLang, 'menu_search')}</ListItemText>
           </MenuItem>
-          <MenuItem onClick={() => handleMenuItemClick("navigation")}>
+          <MenuItem onClick={() => {
+              handleMenuItemClick("navigation");
+              setRead()
+            }}>
               <ListItemIcon>
                 <LibraryBooksIcon fontSize="small" />
               </ListItemIcon>
-              <ListItemText>Read</ListItemText>
+              <ListItemText>{i18n(appLang, 'menu_read')}</ListItemText>
           </MenuItem>
           <MenuItem onClick={() => handleMenuItemClick("settings")}>
               <ListItemIcon>
                 <SettingsIcon fontSize="small" />
               </ListItemIcon>
-              <ListItemText>Settings</ListItemText>
+              <ListItemText>{i18n(appLang, 'settings')}</ListItemText>
           </MenuItem>
         </MenuList>
       </Menu>

@@ -8,14 +8,11 @@ import ListItemText from '@mui/material/ListItemText';
 export default function PassageByVerse({cvArray, docSets}) {
     return cvArray.map((cv, n) => <List key={n}>
                     <ListItem>
-                        <ListItemText className="mainContentTitle2" primary={`${cv[0].split("/")[1]}:${cv[1].split("/")[1]}`} />
+                        <Typography variant="h6">{`${cv[0].split("/")[1]}:${cv[1].split("/")[1]}`}</Typography>
                     </ListItem>
-            {docSets.filter(ds => ds.document).map((ds, n2) => <List key={n2}>
-                    <ListItem>
-                            <ListItemText className="cv" primary={<><Typography className="cv">{ds.id}</Typography> <Typography>{ds.document.cv[n].text}</Typography></>} />
-                    </ListItem>
-                </List>
-            )}
+            {docSets.filter(ds => ds.document).map((ds, n2) => <ListItem key={n2} divider>
+                <ListItemText><Typography><b>{ds.id}</b>{`: ${ds.document.cv[n].text}`}</Typography></ListItemText>
+            </ListItem>)}
         </List>
     )
 }

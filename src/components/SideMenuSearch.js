@@ -5,6 +5,7 @@ import ListItem from "@mui/material/ListItem";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
+import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { useSearchForPassages } from "proskomma-react-hooks";
@@ -38,32 +39,33 @@ export default function SideMenuSearch({pkState, navState, setNavState}) {
         verbose,
     });
 
-    return <List>
-                <ListItem>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            width: 500,
-                            maxWidth: '100%',
-                        }}
-                    >
-                        <TextField 
-                            fullWidth
-                            value={searchText}
-                            onChange={e => setSearchText(e.target.value)}
-                            label="Search" 
-                            color="primary" 
-                            id="search"
-                        />
-                    </Box>
-                </ListItem>
-                <ListItem>
-                    <FormGroup>
-                        <FormControlLabel control={<Switch color="default" onChange={() => setDisplayMode(!displayMode)} />} label={`${i18n(appLang, 'show_blocks')}`} />
-                    </FormGroup>
-                </ListItem>
-                <SearchResults p={passages} searchText={searchText} navState={navState} setNavState={setNavState} />
-            </List>
+    return <><Typography variant="h5">{i18n(appLang, 'menu_search')}</Typography>
+                <List>
+                    <ListItem>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                width: 500,
+                                maxWidth: '100%',
+                            }}
+                        >
+                            <TextField 
+                                fullWidth
+                                value={searchText}
+                                onChange={e => setSearchText(e.target.value)}
+                                label={i18n(appLang, 'search')}
+                                id="search"
+                            />
+                        </Box>
+                    </ListItem>
+                    <ListItem>
+                        <FormGroup>
+                            <FormControlLabel control={<Switch color="default" onChange={() => setDisplayMode(!displayMode)} />} label={`${i18n(appLang, 'show_blocks')}`} />
+                        </FormGroup>
+                    </ListItem>
+                    <SearchResults p={passages} searchText={searchText} navState={navState} setNavState={setNavState} />
+                </List>
+            </>
 }
 
 SideMenuSearch.propTypes = {
