@@ -39,7 +39,7 @@ export default function Browse({pkState, navState, setNavState, catalog, appLang
             setRead()
         }
     }
-    
+
     return <>
                 <AppBar position="fixed" color="primary">
                     <Toolbar>
@@ -65,7 +65,7 @@ export default function Browse({pkState, navState, setNavState, catalog, appLang
                                     setRead={setRead}
                                 />}
                             </Grid>
-                            <Grid item xs={12} sm={6} >
+                            <Grid item xs={12} sm={selected? 6 : 12} >
                                 {browse === 'read' && <BrowseBook pkState={pkState} navState={navState} catalog={catalog} />}
                                 {browse === 'passage' && <BrowsePassage pkState={pkState} navState={navState} selected={selected} />}
                             </Grid>
