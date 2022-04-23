@@ -1,14 +1,14 @@
-import React, {useMemo} from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Paper from '@material-ui/core/Paper';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import {useMediaQuery} from "@material-ui/core";
-import {ThemeProvider, createTheme, withStyles} from '@material-ui/core/styles';
+import React, {useState, useEffect} from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import {useProskomma, useCatalog} from 'proskomma-react-hooks';
+import {nt_ebible_27book as frozen} from 'proskomma-frozen-archives';
+import {thaw} from 'proskomma-freeze';
+import {AppLangProvider} from './contexts/AppLang';
+import SideMenu from "./components/SideMenu";
+import Browse from "./components/Browse.js";
+import './App.css';
 
-const styles = theme => ({
+/*const styles = theme => ({
     root: {
         flexGrow: 1
     },
@@ -18,45 +18,45 @@ const styles = theme => ({
         color: theme.palette.text.secondary,
     },
     toolbarMargin: theme.mixins.toolbar,
-});
+});*/
 
-function App({classes}) {
+function App({}) {
 
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+    const theme = createTheme({});
 
-    const theme = useMemo(
-        () =>
-            createTheme({
-                palette: {
-                    mode: prefersDarkMode ? 'dark' : 'light',
-                },
-            }),
-        [prefersDarkMode],
-    );
-    return <ThemeProvider theme={theme}>
-        <div className={classes.root}>
-            <CssBaseline/>
-            <AppBar position="fixed">
-                <Toolbar>
-                    <Typography>Tool Bar!</Typography>
-                </Toolbar>
+    const initialState = {
+        docSetId: 'xyz-fra_lsg',
+        bookCode: '3JN',
+        chapter: 1,
+        endChapter: 1,
+        verse: 1,
+        endVerse: 1,
+    };
+    const [navState, setNavState] = useState(initialState);
+    const [appLanguage, setAppLanguage] = useState("en");
 
-            </AppBar>
-            <main>
-                <div className={classes.toolbarMargin}/>
-                <Grid container spacing={2}>
-                    {
-                        [...Array(128).keys()].map(n => n + 1)
-                            .map(n => <Grid key={n} item>
-                                <Paper className={classes.paper}>Element {n} goes here</Paper>
-                            </Grid>)
-                    }
-                </Grid>
-            </main>
-        </div>
-    </ThemeProvider>;
+    const verbose = true;
+    const pkState = useProskomma({verbose});
+
+    useEffect(() => {
+        thaw(pkState.proskomma, frozen).then(() => {
+            console.log('thawed');
+            pkState.newStateId();
+        });
+    }, [pkState.proskomma]);
+
+    const {catalog} = useCatalog({
+        proskomma: pkState.proskomma,
+        stateId: pkState.stateId,
+        verbose: true,
+        cv: true,
+    });
+
+    return  <AppLangProvider value={appLanguage}>
+                <ThemeProvider theme={theme}>
+                    <Browse pkState={pkState} navState={navState} setNavState={setNavState} catalog={catalog} appLanguage={appLanguage} setAppLanguage={setAppLanguage} />
+                </ThemeProvider>;
+            </AppLangProvider>
 }
 
-// <Grid key={n} item spacing={3} md={4} sm={6} xs={12}>
-
-export default withStyles(styles)(App);
+export default App;
