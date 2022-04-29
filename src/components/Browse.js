@@ -53,7 +53,7 @@ export default function Browse({pkState, navState, setNavState, catalog, appLang
                 <main style={{marginTop:"75px"}}>
                     <Container maxWidth="md">
                         <Grid container spacing={3}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={selected ? 6 : 12}>
                                 {selected && <SideMenu
                                     pkState={pkState}
                                     navState={navState}
@@ -62,6 +62,7 @@ export default function Browse({pkState, navState, setNavState, catalog, appLang
                                     appLanguage={appLanguage}
                                     setAppLanguage={setAppLanguage}
                                     selected={selected}
+                                    setSelected={setSelected}
                                     setRead={setRead}
                                 />}
                             </Grid>
