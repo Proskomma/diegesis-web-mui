@@ -1,16 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import SideMenuNavigation from "./SideMenuNavigation";
 import SideMenuSearch from "./SideMenuSearch";
 import AppLangOptions from "./AppLangOptions";
 
-export default function SideMenu({pkState, navState, setNavState, catalog, appLanguage, setAppLanguage, selected, setRead}) {
+export default function SideMenu({pkState, navState, setNavState, catalog, appLanguage, setAppLanguage, selected, setSelected, setRead}) {
     return (
-        <div className="sidemenu">
-            {selected === 'settings' && <AppLangOptions appLanguage={appLanguage} setAppLanguage={setAppLanguage} />}
-            {selected === 'navigation' && <SideMenuNavigation catalog={catalog} navState={navState} setNavState={setNavState} setRead={setRead} />}
-            {selected === 'search' && <SideMenuSearch pkState={pkState} navState={navState} setNavState={setNavState} />}
-        </div>
+        <>
+            <Box display="flex" justifyContent="flex-end">
+                    <IconButton 
+                        size="large" 
+                        onClick={() => setSelected('')}
+                        color="primary"
+                        >
+                        <CloseRoundedIcon fontSize="large" />
+                    </IconButton>
+            </Box>
+            <div className="sidemenu">
+                
+                {selected === 'settings' && <AppLangOptions appLanguage={appLanguage} setAppLanguage={setAppLanguage} />}
+                {selected === 'navigation' && <SideMenuNavigation catalog={catalog} navState={navState} setNavState={setNavState} setRead={setRead} />}
+                {selected === 'search' && <SideMenuSearch pkState={pkState} navState={navState} setNavState={setNavState} />}
+            </div>
+        </>
     )
 }
 
@@ -22,5 +37,6 @@ SideMenu.propTypes = {
     appLanguage: PropTypes.string.isRequired,
     setAppLanguage: PropTypes.func.isRequired,
     selected: PropTypes.string.isRequired,
+    setSelected: PropTypes.func.isRequired,
     setRead: PropTypes.func.isRequired,
 };
