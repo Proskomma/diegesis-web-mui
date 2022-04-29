@@ -6,6 +6,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import SideMenuNavigation from "./SideMenuNavigation";
 import SideMenuSearch from "./SideMenuSearch";
 import AppLangOptions from "./AppLangOptions";
+import MenuDownload from "./MenuDownload";
 
 export default function SideMenu({pkState, navState, setNavState, catalog, appLanguage, setAppLanguage, selected, setSelected, setRead}) {
     return (
@@ -23,6 +24,7 @@ export default function SideMenu({pkState, navState, setNavState, catalog, appLa
                 {selected === 'settings' && <AppLangOptions appLanguage={appLanguage} setAppLanguage={setAppLanguage} />}
                 {selected === 'navigation' && <SideMenuNavigation catalog={catalog} navState={navState} setNavState={setNavState} setRead={setRead} />}
                 {selected === 'search' && <SideMenuSearch pkState={pkState} navState={navState} setNavState={setNavState} />}
+                {selected === 'download' && <MenuDownload a="descargas" />}
             </div>
         </>
     )
