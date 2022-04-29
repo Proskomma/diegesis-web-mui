@@ -20,7 +20,6 @@ export default function SideMenu({pkState, navState, setNavState, catalog, appLa
                     </IconButton>
             </Box>
             <div className="sidemenu">
-                
                 {selected === 'settings' && <AppLangOptions appLanguage={appLanguage} setAppLanguage={setAppLanguage} />}
                 {selected === 'navigation' && <SideMenuNavigation catalog={catalog} navState={navState} setNavState={setNavState} setRead={setRead} />}
                 {selected === 'search' && <SideMenuSearch pkState={pkState} navState={navState} setNavState={setNavState} />}
