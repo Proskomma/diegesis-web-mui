@@ -7,6 +7,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import PageviewIcon from '@mui/icons-material/Pageview';
+import DownloadIcon from '@mui/icons-material/Download';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import SettingsIcon from '@mui/icons-material/Settings';
 import i18n from '../lib/i18n';
@@ -76,6 +77,12 @@ export default function PopMenu({selected, setSelected, showAppLang, setShowAppL
                 <SettingsIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>{i18n(appLang, 'settings')}</ListItemText>
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick("download")}>
+              <ListItemIcon>
+                <DownloadIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>{i18n(appLang, 'download')}</ListItemText>
           </MenuItem>
         </MenuList>
       </Menu>
