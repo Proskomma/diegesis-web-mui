@@ -72,21 +72,20 @@ export default function PopMenu({selected, setSelected, showAppLang, setShowAppL
               </ListItemIcon>
               <ListItemText>{i18n(appLang, 'menu_read')}</ListItemText>
           </MenuItem>
-          <MenuItem onClick={() => handleMenuItemClick("settings")}>
-              <ListItemIcon>
-                <SettingsIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>{i18n(appLang, 'settings')}</ListItemText>
-          </MenuItem>
           <MenuItem onClick={() => handleMenuItemClick("download")}>
               <ListItemIcon>
                 <DownloadIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>{i18n(appLang, 'download')}</ListItemText>
           </MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick("settings")}>
+              <ListItemIcon>
+                <SettingsIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>{i18n(appLang, 'settings')}</ListItemText>
+          </MenuItem>
         </MenuList>
       </Menu>
-
     </div>
   );
 }
