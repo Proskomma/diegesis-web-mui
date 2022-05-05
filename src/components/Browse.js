@@ -51,10 +51,11 @@ export default function Browse({pkState, navState, setNavState, catalog, appLang
                     </Toolbar>
                 </AppBar>
                 <main style={{marginTop:"75px"}}>
-                    <Container maxWidth="md">
-                        <Grid container spacing={3}>
+                    <Container maxWidth="xl">
+    <Grid container spacing={3}>
+    {selected &&
                             <Grid item xs={12} sm={6}>
-                                {selected && <SideMenu
+                                <SideMenu
                                     pkState={pkState}
                                     navState={navState}
                                     setNavState={setNavState}
@@ -62,10 +63,11 @@ export default function Browse({pkState, navState, setNavState, catalog, appLang
                                     appLanguage={appLanguage}
                                     setAppLanguage={setAppLanguage}
                                     selected={selected}
+                                    setSelected={setSelected}
                                     setRead={setRead}
-                                />}
-                            </Grid>
-                            <Grid item xs={12} sm={selected? 6 : 12} >
+                                />
+     </Grid>}
+    <Grid item xs={12} sm={selected === '' ? 12 : 6} >
                                 {browse === 'read' && <BrowseBook pkState={pkState} navState={navState} catalog={catalog} />}
                                 {browse === 'passage' && <BrowsePassage pkState={pkState} navState={navState} selected={selected} />}
                             </Grid>

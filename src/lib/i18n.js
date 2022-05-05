@@ -21,6 +21,7 @@ const i18nTables = {
         menu_search: "Search",
         menu_read: "Read",
         search_passage: "Search passage :",
+        download: "Download",
     },
     fr: {
         browse_passage_bible_reference: "Référence Biblique",
@@ -44,6 +45,7 @@ const i18nTables = {
         menu_search: "Recherche",
         menu_read: "Lire",
         search_passage: "Référence :",
+        download: "Télécharger",
     },
     es: {
         browse_passage_bible_reference: "Referencia Bíblica",
@@ -67,6 +69,7 @@ const i18nTables = {
         menu_search: "Buscar",
         menu_read: "Leer",
         search_passage: "Buscar pasaje :",
+        download: "Descargar",
     },
 };
 
