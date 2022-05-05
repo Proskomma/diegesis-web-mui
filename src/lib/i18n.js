@@ -21,7 +21,7 @@ const i18nTables = {
         menu_search: "Search",
         menu_read: "Read",
         search_passage: "Search passage :",
-        download: "Download",
+        download: "Download...",
         language: "Language",
     },
     fr: {
@@ -46,7 +46,7 @@ const i18nTables = {
         menu_search: "Recherche",
         menu_read: "Lire",
         search_passage: "Référence :",
-        download: "Télécharger",
+        download: "Télécharger ...",
         language: "Langue",
     },
     es: {
@@ -71,7 +71,7 @@ const i18nTables = {
         menu_search: "Buscar",
         menu_read: "Leer",
         search_passage: "Buscar pasaje :",
-        download: "Descargar",
+        download: "Descargar...",
         language: "Lenguaje",
     },
 };

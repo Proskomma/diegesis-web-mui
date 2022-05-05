@@ -24,8 +24,14 @@ export default function Browse({pkState, navState, setNavState, catalog, appLang
     const [showAppLang, setShowAppLang] = useState(false);
     const [checked, setChecked] = useState(false);
 
-    const setRead = () => {setBrowse('read'); setChecked(false)}
-    const setPassage = () => {setBrowse('passage'); setChecked(true)}
+    const setRead = () => {
+        setBrowse('read');
+        setChecked(false)
+    }
+    const setPassage = () => {
+        setBrowse('passage');
+        setChecked(true)
+    }
 
     const passageToggle = (browseP) => {
         if (browseP === 'read') {
@@ -34,47 +40,66 @@ export default function Browse({pkState, navState, setNavState, catalog, appLang
             setPassage()
         } else if (checked && browseP !== 'read') {
             setRead()
-        }
-        else {
+        } else {
             setRead()
         }
     }
-    
+
     return <>
-                <AppBar position="fixed" color="primary">
-                    <Toolbar>
-                        <PopMenu selected={selected} setSelected={setSelected} showAppLang={showAppLang} setShowAppLang={setShowAppLang} setPassage={setPassage} setRead={setRead} />
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>{`${navState.bookCode} - ${navState.docSetId}`}</Typography>
-                        <FormGroup>
-                            <FormControlLabel control={<Switch color="default" checked={checked} onChange={() => passageToggle(browse)} />} label={i18n(appLang, 'passage')} />
-                        </FormGroup>
-                    </Toolbar>
-                </AppBar>
-                <main style={{marginTop:"75px"}}>
-                    <Container maxWidth="xl">
-    <Grid container spacing={3}>
-    {selected && 
-                            <Grid item xs={12} sm={6}>
-                                <SideMenu
-                                    pkState={pkState}
-                                    navState={navState}
-                                    setNavState={setNavState}
-                                    catalog={catalog}
-                                    appLanguage={appLanguage}
-                                    setAppLanguage={setAppLanguage}
-                                    selected={selected}
-                                    setSelected={setSelected}
-                                    setRead={setRead}
-                                />
-     </Grid>}
-    <Grid item xs={12} sm={selected === '' ? 12 : 6} >
-                                {browse === 'read' && <BrowseBook pkState={pkState} navState={navState} catalog={catalog} />}
-                                {browse === 'passage' && <BrowsePassage pkState={pkState} navState={navState} selected={selected} />}
-                            </Grid>
-                        </Grid>
-                    </Container>
-                </main>
-            </>
+        <AppBar position="fixed" color="primary">
+            <Toolbar>
+                <PopMenu selected={selected} setSelected={setSelected} showAppLang={showAppLang}
+                         setShowAppLang={setShowAppLang} setPassage={setPassage} setRead={setRead}/>
+                <Typography variant="h6" component="div"
+                            sx={{flexGrow: 1}}>{`${navState.bookCode} - ${navState.docSetId}`}</Typography>
+                <FormGroup>
+                    <FormControlLabel
+                        control={<Switch color="default" checked={checked} onChange={() => passageToggle(browse)}/>}
+                        label={i18n(appLang, 'passage')}/>
+                </FormGroup>
+            </Toolbar>
+        </AppBar>
+        <main style={{marginTop: "75px"}}>
+            <Container maxWidth="xl">
+                <Grid container spacing={3}>
+                    {selected &&
+                    <Grid
+                        item
+                        xs={12}
+                        sm={selected === 'download' ? 12 : 8}
+                        md={selected === 'download' ? 12 : 6}
+                        lg={selected === 'download' ? 12 : 4}
+                        xl={selected === 'download' ? 12 : 3}
+                    >
+                        <SideMenu
+                            pkState={pkState}
+                            navState={navState}
+                            setNavState={setNavState}
+                            catalog={catalog}
+                            appLanguage={appLanguage}
+                            setAppLanguage={setAppLanguage}
+                            selected={selected}
+                            setSelected={setSelected}
+                            setRead={setRead}
+                        />
+                    </Grid>}
+                    {selected !== 'download' &&
+                    <Grid
+                        item
+                        xs={12}
+                        sm={selected === '' ? 12 : 4}
+                        md={selected === '' ? 12 : 6}
+                        lg={selected === '' ? 12 : 8}
+                        xl={selected === '' ? 12 : 9}
+                    >
+                        {browse === 'read' && <BrowseBook pkState={pkState} navState={navState} catalog={catalog}/>}
+                        {browse === 'passage' &&
+                        <BrowsePassage pkState={pkState} navState={navState} selected={selected}/>}
+                    </Grid>}
+                </Grid>
+            </Container>
+        </main>
+    </>
 }
 
 Browse.propTypes = {

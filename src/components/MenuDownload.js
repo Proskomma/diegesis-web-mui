@@ -18,10 +18,10 @@ export default function MenuDownload() {
     };
 
     const tableRows = [
-        {org: "DCS", lang: 'en', abbr: 'ult', title: "Unfolding Word Literal Translation"},
-        {org: "Vachan", lang: 'hi', abbr: 'vt', title: "Vachan Translation"},
-        {org: "eBible", lang: 'en', abbr: 'et', title: "eBible Translation"},
-        {org: "Other", lang: 'zzz', abbr: 'ot', title: "Other Translation"},
+        {org: "DCS", lang: 'en', abbr: 'ult', title: "Unfolding Word Literal Translation", versification: false},
+        {org: "Vachan", lang: 'hi', abbr: 'vt', title: "Vachan Translation", versification: false},
+        {org: "eBible", lang: 'en', abbr: 'et', title: "eBible Translation", versification: true},
+        {org: "Other", lang: 'zzz', abbr: 'ot', title: "Other Translation", versification: false},
     ];
 
     return <Paper sx={{width: '100%', overflow: 'hidden'}}>
@@ -40,6 +40,9 @@ export default function MenuDownload() {
                         </TableCell>
                         <TableCell>
                             {i18n(appLang, 'title')}
+                        </TableCell>
+                        <TableCell>
+                            {i18n(appLang, 'versification')}
                         </TableCell>
                         <TableCell>
                             {i18n(appLang, 'download_actions')}
@@ -62,6 +65,9 @@ export default function MenuDownload() {
                                     </TableCell>
                                     <TableCell>
                                         {row.title}
+                                    </TableCell>
+                                    <TableCell>
+                                        {i18n(appLang, row.versification ? 'yes' : 'no') }
                                     </TableCell>
                                     <TableCell>
                                         <Button>To Do</Button>
