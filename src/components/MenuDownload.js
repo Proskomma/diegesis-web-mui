@@ -1,5 +1,6 @@
 import React, {useState, useContext} from "react";
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Button} from "@mui/material";
+import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, IconButton, Typography} from "@mui/material";
+import DownloadIcon from '@mui/icons-material/Download';
 import i18n from '../lib/i18n';
 import AppLangContext from "../contexts/AppLang";
 
@@ -17,14 +18,20 @@ export default function MenuDownload() {
         setPage(0);
     };
 
+    const handleRowClick = (r) => {
+        console.log(`Download ${r.id} from ${r.org}`)
+    };
+
     const tableRows = [
-        {org: "DCS", lang: 'en', abbr: 'ult', title: "Unfolding Word Literal Translation", versification: false},
-        {org: "Vachan", lang: 'hi', abbr: 'vt', title: "Vachan Translation", versification: false},
-        {org: "eBible", lang: 'en', abbr: 'et', title: "eBible Translation", versification: true},
-        {org: "Other", lang: 'zzz', abbr: 'ot', title: "Other Translation", versification: false},
+        {org: "DCS", lang: 'en', abbr: 'ult', title: "Unfolding Word Literal Translation", id: "dcs", versification: false},
+        {org: "Vachan", lang: 'hi', abbr: 'vt', title: "Vachan Translation", id: "vachan", versification: false},
+        {org: "eBible", lang: 'en', abbr: 'et', title: "eBible Translation", id: "ebible", versification: true},
+        {org: "Other", lang: 'zzz', abbr: 'ot', title: "Other Translation", id: "other", versification: false},
     ];
 
-    return <Paper sx={{width: '100%', overflow: 'hidden'}}>
+    return <>
+    <Typography variant="h5">{i18n(appLang, 'menu_download')}</Typography>
+    <Paper sx={{width: '100%', overflow: 'hidden'}}>
         <TableContainer sx={{maxHeight: 440}}>
             <Table stickyHeader size="small" aria-label="sticky table">
                 <TableHead>
@@ -70,7 +77,9 @@ export default function MenuDownload() {
                                         {i18n(appLang, row.versification ? 'yes' : 'no') }
                                     </TableCell>
                                     <TableCell>
-                                        <Button>To Do</Button>
+                                        <IconButton onClick = {() => handleRowClick(row)} >
+                                            <DownloadIcon fontSize="small" color="primary" />
+                                        </IconButton>
                                     </TableCell>
                                 </TableRow>
                             );
@@ -89,4 +98,5 @@ export default function MenuDownload() {
             onRowsPerPageChange={handleChangeRowsPerPage}
         />
     </Paper>
+    </>
 }
