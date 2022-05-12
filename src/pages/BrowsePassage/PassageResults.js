@@ -14,7 +14,7 @@ export default function PassageResults({reference, parseResult, docSets, display
     const cvArray = docSets[0]?.document?.cv.map(v => v.scopeLabels) || [];
 
     if (reference === '') {
-        return ;
+        return <Typography>{i18n(appLang, 'enter_search_text')}</Typography>
     } else if (!parseResult.parsed) {
         return <Typography>{i18n(appLang, 'error_format')}</Typography>
     } else if (docSets?.filter(ds => ds.document).length === 0) {
